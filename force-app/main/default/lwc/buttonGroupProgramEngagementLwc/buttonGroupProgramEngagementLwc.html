@@ -1,0 +1,17 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 08-22-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div class="slds-m-vertical_large">
+        <div>
+            <button class="slds-button slds-button_neutral" onclick={showManager}>Gestionar mi beca</button>
+        </div>
+    </div>
+    <template if:true={showManagerComponent}>
+        <c-participant-manager-lwc onexit={showManager} program-engagement-id={recordId}></c-participant-manager-lwc>
+    </template>
+</template>

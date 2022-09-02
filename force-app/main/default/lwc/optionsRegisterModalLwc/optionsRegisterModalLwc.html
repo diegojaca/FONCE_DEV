@@ -1,0 +1,76 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 05-09-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <template if:true={isModalOpen}>
+        <section class="slds-modal slds-fade-in-open slds-modal_small">
+            <div class="slds-modal__container">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeModal} title="X, cerrar ventana">
+                    <lightning-icon icon-name="utility:close" size="medium" class="close-icon"></lightning-icon>
+                </button>
+                <!-- <div class="slds-modal__header">
+                        <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Es necesario cumplir los siguientes requisitos</h1>
+                </div> -->
+                <div role="dialog" tabindex="-1" aria-labelledby="Opciones" aria-modal="true" class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <template if:true={isForUniversity}>
+                        <div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-m-vertical_x-small">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                                <div class="slds-box" style="height:100%">
+                                    <div class="slds-m-bottom_x-small slds-text-align_center">
+                                        <strong><h1>¿Ya tienen cuenta como universidad?</h1></strong>
+                                    </div>
+                                    <button data-target-id="enterButtonForUniversity" class="slds-button slds-button_outline-brand slds-button_stretch" type="button"  onclick={submitLoginUniversityPortal}>Entrar</button>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                                <div class="slds-box" style="height:100%">
+                                    <div class="slds-m-bottom_x-small slds-text-align_center">
+                                        <strong><h1>¿Es vuestra primera vez?</h1></strong>
+                                    </div>
+                                    <button class="slds-button slds-button_outline-brand slds-button_stretch" type="button" onclick={submitNewLeadUniversity}>Registraros aquí</button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                    <!-- <template if:false={isForUniversity}>
+                        <div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-m-vertical_x-small">
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                                <div class="slds-box" style="height:100%">
+                                    <div class="slds-m-bottom_x-small slds-text-align_center">
+                                        <strong><h1>¿Ya tienes cuenta?</h1></strong>
+                                    </div>
+                                    <button data-target-id="enterButton" class="slds-button slds-button_outline-brand slds-button_stretch" type="button"  onclick={submitLoginPersonPortal}>Entrar</button>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                                <div class="slds-box" style="height:100%">
+                                    <div class="slds-m-bottom_x-small slds-text-align_center">
+                                        <strong><h1>¿Aun no tienes cuenta?</h1></strong>
+                                    </div>
+                                    <button class="slds-button slds-button_outline-brand slds-button_stretch" type="button" onclick={submitNewPerson}>Registrate aquí</button>
+                                </div>
+                            </div>
+                            <div class="slds-col slds-size_1-of-1 slds-large-size_4-of-12">
+                                <div class="slds-box" style="height:100%">
+                                    <div class="slds-m-bottom_x-small slds-text-align_center">
+                                        <strong><h1>¿Te interesa Unidiversidad?</h1></strong>
+                                    </div>
+                                    <button class="slds-button slds-button_outline-brand slds-button_stretch" type="button" onclick={submitNewLeadPerson}>Registrate aquí</button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>                         -->
+                </div>
+                <!-- <div class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeModal} title="Cancelar">No los cumplo</button>
+                    <button class="slds-button slds-button_brand" onclick={submitDetails} title="Seguir">Los cumplo</button>
+                </div> -->
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+ </template>

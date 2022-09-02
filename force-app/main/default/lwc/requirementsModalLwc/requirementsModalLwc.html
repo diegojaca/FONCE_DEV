@@ -1,0 +1,60 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 06-30-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <section
+        aria-describedby="modal-content-id-1"
+        aria-hidden={modalAriaHidden}
+        aria-labelledby="modal-heading-01"
+        aria-modal="true"
+        class={cssClass}
+        onkeyup={innerKeyUpHandler}
+        onkeypress={handleKeyPress}
+        onkeydown={handleKeyPress}
+        role="dialog"
+        tabindex="-1"
+    >
+        <div class="slds-modal__container">
+            <a href="javascript:void(0)" class="firstlink"></a>
+                <header class="slds-modal__header" onclick={innerClickHandler}>
+                    <button
+                        class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        onclick={closeModal}
+                        title="X, cerrar ventana"
+                    >
+                        <lightning-icon icon-name="utility:close" size="medium" class="close-icon" aria-hidden="true"></lightning-icon>
+                        <!-- <span class="slds-assistive-text">X, cerrar ventana</span> -->
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
+                        Es necesario cumplir los siguientes requisitos
+                    </h2>
+                </header>
+            <div
+                class="slds-modal__content slds-p-around_medium"
+                id="modal-content-id-1"
+                tabindex="-1"
+                onclick={innerClickHandler}
+            >
+                <template if:true={program}>
+                    <div class="modalContent slds-modal__content slds-var-p-around_medium slds-align_absolute-center slds-m-bottom_small slds-m-top_x-large">
+                        <lightning-formatted-rich-text
+                                value={program.Minimum_Requirements__c}>
+                        </lightning-formatted-rich-text>
+                    </div>
+                </template>
+            </div>
+            <footer class="slds-modal__footer" onclick={innerClickHandler}>
+                <button class="slds-button slds-button_neutral cancel" onclick={closeModal} title="Cancelar">No lo cumplo</button>
+                <button class="slds-button slds-button_brand continue" onclick={submitDetails} title="Seguir">Lo cumplo</button>
+                <a href="javascript:void(0)" class="lastLink"></a>
+            </footer>
+        </div>
+    </section>
+    <template if:true={isOpen}>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+ </template>

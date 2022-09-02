@@ -1,0 +1,71 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 08-08-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <template if:false={alertForm}>
+
+        <template if:true={isCampus}>
+            <div class="slds-box slds-m-vertical_medium">
+                <div class="slds-m-around_medium">
+                    <p class="slds-text-body_regular slds-align_absolute-center">Pulsando el botón 'En revisión del interesado' nos asignamos el interesao y pulsando 'Devolver a la lista' volvemos a enviar el interesado a la lista.</p>
+                </div>
+
+                <div class="row">
+                    <div class="column"> 
+                        <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={assignLead}>En revisión del interesado</button>
+                    </div>
+                    
+                    <div class="column"> 
+                        <button class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={assignToQueue}>Devolver a la lista</button>
+                    </div>
+                </div>
+            </div>
+        </template>
+                
+        <div class="slds-box slds-m-vertical_medium">
+            <div class="slds-m-around_medium">
+                <p class="slds-text-body_regular slds-align_absolute-center">Información del interesado en participar en el programa. Si quiere agregar al interesado como participante, pulse "Aceptar".</p>
+            </div>
+        </div>
+        <lightning-record-form
+            record-id={recordId}
+            object-api-name="Lead"
+            layout-type="Full"
+            mode="readonly"
+            >
+        </lightning-record-form>
+        <div class="row">
+            <div class="column"> 
+                <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showList}>Volver</button>
+            </div>
+            
+            <div class="column"> 
+                <button class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showAlertForm} disabled={disabledAcept}>Aceptar</button>
+            </div>
+        </div>
+    </template>
+        
+    <template if:true={alertForm}>
+        <div class='slds-box'>
+            <div class="slds-m-around_medium">
+                <p class="slds-text-body_regular slds-align_absolute-center">¿Esta seguro que quiere aceptar este participante?</p>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <button class="slds-button slds-button_neutral slds-align_absolute-center" onclick={showLeadForm} title="No">NO</button>                    
+                </div> 
+                <div class="column">
+                    <button class="slds-button slds-button_brand slds-align_absolute-center" onclick={convertLead} title="Si">SI</button>                    
+                </div> 
+            </div>
+        </div>
+    </template>
+
+    <template if:true={loaded}>
+        <lightning-spinner alternative-text="Guardando"></lightning-spinner>
+    </template>
+</template>

@@ -1,0 +1,81 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 08-22-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div class={managerClass}>
+        <div class="slds-box">
+            <div class="slds-m-around_medium">
+                <p class="slds-text-body_regular slds-align_absolute-center">Este es el listado de alumnos que se encuentran en proceso de aceptación o aceptados en su programa. 
+                    Desde aquí puede ingresar en cada participante y modificar sus requisitos o sus datos.</p>
+            </div>
+        </div>
+        <div class="slds-m-around--xx-large">
+            <template if:true={showAddParticipantsButton}>
+                <div class="slds-var-m-vertical_medium">
+                    <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showLeadManager}>Añadir participante</button>
+                </div>
+            </template>
+            <div>        
+                <table class="slds-table slds-table_bordered" style="width:100%" > 
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col" style="width:8%">
+                                <div class="slds-truncate">#</div>
+                            </th>
+                            <th scope="col" style="width:50%">
+                                <div class="slds-truncate" title="Nombre" >Nombre</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Etapa" >Etapa</div>
+                            </th>
+                            <th scope="col" style="width:8%">
+                            </th>
+                        </tr>
+                    </thead>   
+                    <tbody>  
+                        <template for:each={programEngagements} for:item="programEngagement" for:index="index">
+                            <tr key={programEngagement.Key} id={programEngagement.Key}> 
+                                <td>
+                                    {programEngagement.Index}
+                                </td>                                                  
+                                <td data-label="Nombre">
+                                    {programEngagement.Name}                   
+                                </td>
+                                <td data-label="Etapa">
+                                    {programEngagement.pmdm__Stage__c}                   
+                                </td>
+                                <td>
+                                    <lightning-button-icon icon-name="utility:preview"
+                                        data-id={index}       
+                                        alternative-text="Ingresar"     
+                                        class="slds-m-left_xx-small"
+                                        onclick={addRequirements} 
+                                        title="Ingresar">
+                                    </lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="slds-m-vertical_medium"> 
+            <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showProgram}>Volver</button>
+        </div>
+    </div>
+
+    <div class={leadManagerClass}>
+        <template if:true={type}>
+            <c-lead-manager-lwc program-id={recordId} onexit={showManager} type={type}></c-lead-manager-lwc>            
+        </template>
+    </div>
+    
+    <div class={participantManagerClass}>
+        <c-participant-manager-lwc onexit={showManager} program-engagement-id={programEngagementId} return-visible finish-visible></c-participant-manager-lwc>
+    </div>
+
+</template>

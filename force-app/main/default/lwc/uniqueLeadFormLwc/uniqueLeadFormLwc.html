@@ -1,0 +1,84 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 05-18-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+
+	<template if:false={isAgree}>
+		<h1 class="slds-text-heading_medium slds-m-bottom_medium">
+			<strong>ACEPTACIÓN DE TERMINOS Y CONDICONES</strong>
+		</h1>
+		<p class="slds-text-heading_medium slds-m-bottom_medium">{termsAndConditions}</p>
+		
+		<div class="slds-m-vertical_small">
+			<lightning-button label="Acepto" title="Aceptar" onclick={handleAgreeClick} class="slds-align_absolute-center" variant="brand-outline"></lightning-button>
+		</div>
+	</template>
+
+	<template if:true={isAgree}>
+		<template if:false={leadChange}>
+			<div class="form slds-m-vertical_medium slds-box">
+				<div class="slds-form">
+					<lightning-record-edit-form object-api-name="Lead" onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError} record-type-id={recordTypeId}>
+						<lightning-messages> </lightning-messages>
+						<template if:true={saveButtonDisabled}>
+							<p class="slds-text-body_regular" style="color:#FF0000">Por favor, escriba un DNI/NIE en el formato correcto.</p>
+						</template>
+						<template if:true={isUniversity}>
+							<lightning-input-field field-name="University__c" required onchange={handleChangeUniversity}> </lightning-input-field>
+							<template if:true={isOther}>
+								<lightning-input-field field-name="OtherUniversity__c" onchange={handleChangeOtherUniversity}></lightning-input-field>
+							</template>
+						</template>
+						<div class="slds-is-collapsed">
+							<lightning-input-field field-name="RecordTypeId" value={recordTypeId} disabled tabindex="-1"> </lightning-input-field> 
+							<lightning-input-field field-name="Company" value={university} disabled tabindex="-1"> </lightning-input-field>
+							<lightning-input-field field-name="BecaDeInteres__c" value={type} disabled tabindex="-1"> </lightning-input-field>
+						</div>
+						<template for:each={fieldsMap} for:item="field">
+							<lightning-input-field
+								field-name={field.key}
+								key={field.key}
+								required={field.value}
+								data-id={field.key}
+								onchange={handleChangeField}
+								class={field.key}>
+							</lightning-input-field>
+						</template>
+						<lightning-button
+							class="slds-align_absolute-center"
+							type="submit"
+							disabled={saveButtonDisabled}
+							label="Guardar"
+							variant="brand-outline"
+						>
+						</lightning-button>
+					</lightning-record-edit-form>
+				</div>
+			</div>
+		</template>
+			
+		<template if:true={leadChange}>
+			<div class="slds-box" style="height:100%">
+				<div class="slds-m-bottom_x-small slds-text-align_center">
+					<strong><h1 class="slds-text-heading_small">Vuestra información se ha guardado con éxito.</h1></strong>
+					<p class="slds-text-body_regular">Contactaremos con ustedes para seguir el proceso de solicitud.</p>
+				</div>
+				<div class="slds-m-around_medium">
+					<div class="slds-align_absolute-center slds-p-top_small">
+						<lightning-button name="Volver" label="Volver" onclick={navigateToHomePageSite} variant="brand-outline"></lightning-button>
+					</div>
+				</div>
+			</div>
+		</template>
+				
+	</template>
+
+	<template if:true={loaded}>
+		<lightning-spinner alternative-text="Guardando"></lightning-spinner>
+	</template>
+	
+  </template>

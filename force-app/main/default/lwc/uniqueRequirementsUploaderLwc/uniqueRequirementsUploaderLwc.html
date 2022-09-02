@@ -1,0 +1,76 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 07-05-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+    <template if:true={requirements}>
+            <div class="slds-m-around_medium">
+                <p class="slds-text-heading_small slds-align_absolute-center alert" >Los documentos con asterisco son de obligado cumplimiento.</p>
+                <p class="slds-text-body_regular slds-align_absolute-center alert">{alertMsg}</p>
+            </div>
+        <template for:each={requirements} for:item="requirement">
+            <div class="slds-m-bottom_large" key={requirement.Id}>
+                <div class="row">
+                    <div class="column">
+                        <template if:true={requirement.IsRequired__c}>
+                            <span style="color:red">*</span>
+                        </template>
+                    </div>
+                    <div class="column">
+                        <lightning-file-upload
+                                label={requirement.Name}
+                                name={requirement.Name}
+                                file-field-name="Guest_Record_fileupload__c"
+                                file-field-value={requirement.Id}
+                                multiple
+                                onuploadfinished={handleFileLoad}>
+                        </lightning-file-upload>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </template>
+
+    <template if:true={requirementsPresented}>
+        <div class="slds-box slds-m-vertical_medium">
+            <h2 class="section">Requisitos presentados</h2>
+            <br/>
+            <table class="slds-table slds-table_bordered" style="width:100%" > 
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Nombre" >Nombre</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Estado" >Estado</div>
+                        </th>
+                        <th scope="col" >
+                            <div class="slds-truncate" title="Razón de rechazo" >Razón de rechazo</div>
+                        </th>
+                    </tr>
+                </thead>   
+                <tbody>  
+                    <template for:each={requirementsPresented} for:item="requirementPresented">
+                        <tr key={requirementPresented.Id} id={requirementPresented.Id}> 
+                            <td data-label="Nombre">
+                                <template if:true={requirementPresented.IsRequired__c}>
+                                    <span style="color:red">*</span>
+                                </template>
+                                {requirementPresented.Name}   
+                            </td>                                           
+                            <td data-label="Estado">
+                                {requirementPresented.outfunds__Status__c}                   
+                            </td>
+                            <td data-label="Razón de rechazo">
+                                {requirementPresented.ReasonForRejection__c}   
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
+</template>

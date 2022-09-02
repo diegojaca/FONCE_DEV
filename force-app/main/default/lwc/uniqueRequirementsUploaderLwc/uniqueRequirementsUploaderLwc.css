@@ -1,0 +1,15 @@
+.row{
+    display:flex;
+}
+
+.section{
+    font-size: 150%;
+}
+
+.helpText{
+    font-size: 150%;
+}
+
+.alert {
+    font-weight: bold;
+}

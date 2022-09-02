@@ -1,0 +1,204 @@
+/* lightning-card{
+  --sds-c-card-color-background: #f6f6f6;
+  --sds-c-card-color-border: #dadada;
+  --sds-c-button-brand-color-background: purple;
+} */
+
+.redColor{
+  background:#ae3c2f;
+  height:100%;
+}
+.blueColor{
+  background:#1c6778;
+  height:100%;
+}
+.orangeColor{
+  background:#c76817;
+  height:100%;
+}
+.greenColor{
+  background:#446e1d;
+  height:100%;
+}
+.fuchsiaColor{
+  background:#a62b8e;
+  height:100%;
+}
+
+/* .whiteText{
+  font-size: 1.125em;
+  font-family: Calibri, Arial, Helvetica, san-serif;
+  color: white;
+} */
+
+.strong {
+  font-family: BebasNeue, helvetica, san-serif;
+  font-size: 2.222em;
+  font-weight: normal;
+  min-height: 70px;
+  vertical-align: middle;
+  display: block;
+  padding-bottom: 10px;
+  margin: 20px 0;
+  position: relative;
+  color: white;
+  background: url(../img/bg_border_bloques.png)no-repeat center bottom;
+} 
+
+/* .menu_home {
+  border: 1px solid #dadada;
+  background: #f6f6f6;  
+}
+
+.menu_home_li{border:1px solid #dadada;background:#f6f6f6;overflow:hidden;display: table;width:100%;height:100%;position: relative} */ 
+
+/* Container holding the image and the text */
+/* .container {
+    position: relative;
+    text-align: center;
+    color: white;
+} */
+
+/* Centered text */
+/* .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }  
+
+  .bloq_digital{
+    border-color: #ae3c2f #dadada #dadada;
+    border-image: none;
+    border-style: solid;
+    border-width: 25px 1px 1px;
+    border-top: 25px solid #c76817;
+    background: #c76817;
+}
+
+.bloq_digital a:hover, .bloq_digital a:focus {
+    border-color: #fff;
+}
+
+.bloq_digital .hvr-sweep-to-bottom:focus, .bloq_digital .hvr-sweep-to-bottom:hover {
+    color: #c76817;    
+} */
+
+/* .hvr-sweep-to-bottom {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+}
+
+.estado {
+    bottom: 10px;
+    display: block;
+    font-weight: bold;
+    left: 0;
+    margin: 0.5em 0 0;
+    right: 0;
+} */
+
+/*EFECTO HOVER BLOQUES HOME*/
+/* .hvr-sweep-to-bottom {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+    -webkit-transition-property: color;
+    transition-property: color;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+  }
+  .hvr-sweep-to-bottom:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(0);    
+  }
+
+  .hvr-sweep-to-bottom:hover, .hvr-sweep-to-bottom:focus, .hvr-sweep-to-bottom:active {
+    color: white;
+  }
+
+  .hvr-sweep-to-bottom:hover:before, .hvr-sweep-to-bottom:focus:before, .hvr-sweep-to-bottom:active:before {
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    
+  } */
+  /*FIN DE EFECTO*/
+  /* .efect-lupa{overflow: hidden;position: relative;text-align: center;cursor: default;width:220px!important;margin:20px auto;}
+  .efect-lupa img{position:relative;display:block;width:100%;cursor:pointer;}
+  .efect-lupa a
+  {
+      background: rgba(0,0,0,0.7) url(../img/bg-lupa.png)no-repeat center;
+      display:block;
+      text-indent:-9999px;
+      width:100%;
+      height:100%; 
+      transition: all 0.5s ease-in-out;
+      transform:translateX(100%);
+      -ms-transform:translateX(100%);
+   
+  } */
+
+  /* .efect-lupa:hover .mask , .efect-lupa .mask:focus  {position:absolute;transform:translateY(-100%);-ms-transform:translateY(-100%);}  */
+  /*FIN DE EFECTO*/
+
+  .row{
+    display:flex;
+  }
+
+  .column{
+    width:100%;
+  }
+  /* .container{
+    width: 100%;
+    padding: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
+  }  */
+
+  .container-element .grid-item:nth-child(2n) .slds-grid{
+    flex-direction: row-reverse;
+  }
+
+  .titleFundingProgram{
+    font-size: 13px; 
+    display: flex; 
+    justify-content: center; 
+    height: 100%; 
+    align-items: center;
+  }
+
+  /* @media screen and (max-width: 600px) {
+    .container-element .grid-item:nth-child(2n) .row{
+      flex-direction: row;
+    }
+
+    .row{ 
+      display: inline;
+    }
+  } */

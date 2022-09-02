@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'BebasNeue';
+    src: url('/s/sfsites/c/resource/BebasNeueFont/BebasNeue-Regular.ttf') format('TrueType');
+  }
+
+.section {
+  font-family: BebasNeue;
+  font-size: 2em;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.subSection {
+  font-family: BebasNeue;
+  font-size: 1.75em;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  color:red;
+}
+
+.description {
+  font-family: Arial !important;
+  font-size: 1.25em !important;
+  text-align: justify;
+  white-space: pre-wrap;
+}
+
+/* .imageContent{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+} */
+
+.subSectionDoc {
+  color: #b62e3e;
+  display: block;
+  text-decoration: none;
+  font-size: 1.063em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 1.5em 3em 1.5em 0;
+}
+
+/* .rowButtonGroup{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:space-evenly;
+}
+
+.rowContent{
+  display:flex;
+  flex-wrap: wrap;
+} */
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+}

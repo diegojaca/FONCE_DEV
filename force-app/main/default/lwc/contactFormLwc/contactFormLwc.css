@@ -1,0 +1,11 @@
+.row{
+    display:flex;
+}
+
+.column{
+    width:100%;
+}
+
+.helpText{
+    font-size: 150%;
+}

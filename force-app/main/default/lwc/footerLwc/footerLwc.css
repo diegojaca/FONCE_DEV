@@ -1,0 +1,30 @@
+.background{
+    background-color: #333;
+    color: white;
+}
+
+
+.horizontal-line {
+    width: 85%;
+    height: 1px;
+    border-top: solid #ffffff 1px;
+}
+
+.vertical-line {
+    width: 50px;
+    height: 20%;
+    border-right: solid #ffffff 1px;
+}
+
+.center {
+    align-items: center;
+}
+
+
+.title{
+    font-size: 2em;
+}
+
+.logo{
+    filter: invert(1);
+}

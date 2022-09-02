@@ -1,0 +1,92 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 07-13-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+    <!-- <lightning-progress-indicator current-step={step} type="path" variant="base">
+        <lightning-progress-step label="CARGA BENEFICIARIOS" value="step1" onstepfocus={selectStep1}></lightning-progress-step>
+        <lightning-progress-step label="FINALIZAR" value="step2" onstepfocus={selectStep2} ></lightning-progress-step>
+    </lightning-progress-indicator>-->
+           
+    <template if:true={listComp}>
+        <div class="slds-m-around--xx-large container-fluid">
+            <div class="slds-float_right slds-p-bottom_small">
+                <h1 class="slds-page-header__title">Añadir Beneficiario
+                    <lightning-button-icon icon-name="utility:add"  size="large" variant="bare" alternative-text="Añadir Beneficiario" onclick={addRow}> </lightning-button-icon>
+                </h1>
+            </div>
+            <div class="container-fluid">        
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer" > 
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col">
+                                <div class="slds-truncate" title="Nombre">Nombre</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Estado">Estado</div>
+                            </th>
+                        </tr>
+                    </thead>   
+                    <tbody>  
+                        <template for:each={fundingRequests} for:item="fundingRequest" for:index="index">
+                            <tr key={fundingRequest.Id} id={fundingRequest.Id}> 
+                                <td>
+                                    <h1>{fundingRequest.Name}</h1>
+                                </td>
+                                <td>
+                                    <h1>{fundingRequest.outfunds__Status__c}</h1>
+                                </td>
+                                <td>
+                                    <button class="slds-button slds-button_outline-brand" 
+                                        type="button" 
+                                        data-index={index} 
+                                        onclick={updateRow}>
+                                            Modificar
+                                    </button>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </template>
+    <template if:true={listForm}>
+        <c-unique-registration-progress-lwc 
+            contact-id={contactId} 
+            program={program} 
+            need-resources={needResources}
+            need-requirements={needRequirements}
+            funding-request-id={fundingRequestId}
+            not-need-funding-request-form>
+        </c-unique-registration-progress-lwc>
+        <div class="slds-m-vertical_medium">
+            <button class="slds-button slds-button_stretch slds-button_outline-brand" type="button" onclick={previousFromForm}>Volver a la lista de solicitudes</button>
+        </div>
+    </template>
+    <template if:true={listContForm}>
+        <div class="slds-box">
+            <lightning-combobox
+                label="Programa de Interés"
+                value={programType}
+                placeholder="Seleccione programa"
+                options={typeOptions}
+                onchange={handleTypeOptionsChange} >
+            </lightning-combobox>
+        </div>
+        <template if:true={contactLayoutName}>
+            <c-unique-contact-form-lwc  
+                layout-name = {contactLayoutName}
+                oncontactcreate={handleContactCreate}>
+            </c-unique-contact-form-lwc>
+        </template>
+        <div class="slds-m-vertical_medium">
+            <button class="slds-button slds-button_stretch slds-button_outline-brand" type="button" onclick={previousFromForm}>Volver a la lista de solicitudes</button>
+        </div>
+    </template>
+        
+
+</template>

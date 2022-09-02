@@ -1,0 +1,15 @@
+.row{
+    display:flex;
+}
+
+.column{
+    width:100%;
+}
+
+.alert {
+    font-weight: bold;
+  }
+
+.section{
+    font-size: 150%;
+}

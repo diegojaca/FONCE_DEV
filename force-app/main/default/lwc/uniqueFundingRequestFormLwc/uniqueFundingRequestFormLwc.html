@@ -1,0 +1,126 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 07-12-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+
+    <!-- <template if:false={fundingRequestId}> -->
+    <div class="slds-box" tabindex="-1">
+        <div class="slds-m-around_medium">
+            <p class="slds-text-heading_small slds-align_absolute-center alert" role="alert">Por favor, antes de pulsar 'Continuar', guarde la información de su solicitud.</p>
+            <p class="slds-text-body_regular slds-align_absolute-center">Para poder guardar debe aceptar el consentimiento de cesión de datos.</p>
+        </div>
+    </div>
+    
+        <!-- <template if:false ={loaded}> -->
+    <div class="slds-form">
+        <div class="slds-m-around_medium" tabindex="-1">
+            <p class="slds-text-heading_small slds-align_absolute-center alert" role="alert">Los campos con asterisco son de obligado cumplimiento.</p>
+        </div>
+        <lightning-record-edit-form object-api-name="outfunds__Funding_Request__c" onsuccess={handleSuccess} onsubmit={handleSubmit} record-id={fundingRequestId} onerror={handleError}>
+            <lightning-messages> </lightning-messages>
+            <div class="slds-is-collapsed" >
+                <lightning-input-field field-name="outfunds__Applying_Contact__c" value={contactId} disabled tabindex="-1" aria-hidden=true> </lightning-input-field>
+                <lightning-input-field field-name="outfunds__FundingProgram__c" value={fundingProgramId} disabled tabindex="-1" aria-hidden=true> </lightning-input-field>
+                <lightning-input-field field-name="RecordTypeId" value={recordTypeId} disabled tabindex="-1" aria-hidden=true> </lightning-input-field>
+                <lightning-input-field field-name="outfunds__Applying_Organization__c" value={accountId} disabled tabindex="-1" aria-hidden=true> </lightning-input-field>
+                <lightning-input-field field-name="IndividualRequest__c" value={isRequestForPerson} disabled tabindex="-1" aria-hidden=true> </lightning-input-field>
+            </div>
+            <!-- <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}> -->
+
+                <!-- Init Select Account -->
+                <template if:true={showUniversityOpt}>
+                    <div class="slds-grid slds-wrap">
+
+                        <div class="slds-col slds-size_4-of-12">
+                            <div class="slds-var-m-top_xx-small"><span>{UNIVERSITY_COMBO_LABEL} </span><span style="color: red;">* </span></div>
+                        </div>
+                
+                        <div class="slds-col slds-size_8-of-12">
+                            <lightning-combobox
+                                name="account"
+                                value={accountId}
+                                placeholder="Seleccione una universidad"
+                                options={accountOptions}
+                                onchange={handleAccountChange}
+                                variant="label-hidden"
+                                required>
+                            </lightning-combobox>
+                        </div>
+                    </div>
+                </template>
+                <!-- End Select Account -->
+                <hr>
+
+                <template if:true={personalInfoSection}>
+                    <!-- <lightning-accordion-section name="Consentimiento de Datos Personales" label="Consentimiento de Datos Personales"> -->
+                    <h3 class="section">Consentimiento de Datos Personales</h3>
+                        <lightning-input-field field-name="ConsentimientoCesionDatosPersonales__c" required="true"> </lightning-input-field>
+                    <hr>
+                    <!-- </lightning-accordion-section> -->
+                </template>
+                <template for:each={sectionsMap} for:item="section">
+                    <div key={section.key}>
+                        <h3 class="section">{section.key}</h3>
+                    <!-- <lightning-accordion-section name={section.key} label={section.key} key={section.key}> -->
+                        <template for:each={section.value} for:item="field">
+                            <lightning-input-field field-name={field.key} key={field.key} required={field.value}> </lightning-input-field>
+                        </template> 
+                        <hr>
+                    </div>
+                    <!-- </lightning-accordion-section> -->
+                </template>
+            <!-- </lightning-accordion>  -->
+            <div class="slds-m-around_medium">
+                <div class="slds-box">
+                    <div class="slds-m-around_medium">
+                        <p class="slds-text-heading_small slds-align_absolute-center alert" role="alert">Por favor, antes de pulsar 'Continuar', guarde la información de su solicitud.</p>
+                        <p class="slds-text-body_regular slds-align_absolute-center">Para poder guardar debe aceptar el consentimiento de cesión de datos.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="column">
+                    <lightning-button
+                        class="slds-align_absolute-center"
+                        type="submit"
+                        label="Guardar"
+                        variant="brand-outline">
+                    </lightning-button>
+                </div>
+                <div class="column">
+                    <lightning-button
+                        class="slds-align_absolute-center"
+                        type="submit"
+                        label="Continuar"
+                        onclick={handleNext}
+                        variant="brand-outline">
+                    </lightning-button>
+                </div>
+            </div>
+        </lightning-record-edit-form>
+    </div>
+    
+        <!-- </template> -->
+
+    <template if:true={loaded}>
+        <lightning-spinner alternative-text="Guardando"></lightning-spinner>
+    </template>
+
+    <!-- </template> -->
+
+    <!-- <template if:true={fundingRequestId}>
+        <div class="slds-form">
+            <lightning-record-form 
+                object-api-name="outfunds__Funding_Request__c" 
+                record-id={fundingRequestId} 
+                layout-type="Full"
+                mode="view">
+            </lightning-record-form>
+        </div>
+    </template> -->
+    
+</template>

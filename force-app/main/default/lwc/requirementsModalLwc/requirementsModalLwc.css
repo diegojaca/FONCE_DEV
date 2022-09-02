@@ -1,0 +1,8 @@
+.close-icon {
+    --sds-c-icon-color-foreground-default: white;
+}
+
+.slds-modal__content {
+    overflow: auto;
+    max-height: 100vh;
+}

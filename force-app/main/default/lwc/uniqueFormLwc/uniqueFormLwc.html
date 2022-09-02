@@ -1,0 +1,39 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 07-13-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+  <template if:true={contactId}>
+    <div class={formClass}>
+      <template if:true={openFundingRequest}>
+        <c-unique-registration-progress-lwc 
+          contact-id={contactId} 
+          program={program} 
+          is-university={isUniversity} 
+          need-resources={needResources}
+          need-requirements={needRequirements}
+          funding-request-id={fundingRequestId}>
+        </c-unique-registration-progress-lwc>
+      </template>
+      <template if:false={openFundingRequest}>
+        <div class="slds-box">
+          <div class="slds-m-around_medium" role="region" aria-live="polite">
+            <h2 class="slds-text-heading_small slds-align_absolute-center titleHelpText">Su solicitud ya fue enviada.</h2>
+            <p class="slds-text-body_regular slds-align_absolute-center slds-text-align_center helpText">Si necesita información de esta contacte con nosotros.</p>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div class={alertClass}>
+      <div class="slds-box">
+        <div class="slds-m-around_medium" role="region" aria-live="polite">
+          <h2 class="slds-text-heading_small slds-align_absolute-center titleHelpText">Su solicitud ya fue creada.</h2>
+          <p class="slds-text-body_regular slds-align_absolute-center slds-text-align_center helpText">Usted ya tiene una solicitud para esta convocatoria. Para verla diríjase a Mis Solicitudes.</p>
+        </div>
+      </div>
+    </div>
+  </template>
+</template>

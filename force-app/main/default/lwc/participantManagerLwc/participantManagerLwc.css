@@ -1,0 +1,15 @@
+.row{
+    display:flex;
+}
+
+.column{
+    width:100%;
+}
+
+.displayNone {
+    display: none;
+}
+
+.displayBlock {
+    display: block;
+}

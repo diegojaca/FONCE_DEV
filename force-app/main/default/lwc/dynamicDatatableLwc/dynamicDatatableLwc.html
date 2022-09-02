@@ -1,0 +1,97 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 06-10-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div if:true={isLoaded} class="cstm-spinner">
+		<lightning-spinner alternative-text="Cargando..."></lightning-spinner>
+	</div>
+                  
+    <div class="slds-m-around--xx-large">
+        <div class="slds-float_right slds-p-bottom_small" >
+            <p class="slds-page-header__title">Añadir
+                <lightning-button-icon icon-name="utility:add"  size="large" variant="bare" alternative-text="Añadir" onclick={addRow} title="Añadir recurso"> </lightning-button-icon>
+            </p>
+        </div>
+        <div>        
+            <table class="slds-table slds-table_bordered" style="width:100%" > 
+                <thead>
+                    <tr class="slds-text-title_caps">
+                        <th scope="col" style="width:8%">
+                            <div class="slds-truncate">#</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Profesional">Profesional</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Número">Número</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Jornada">Jornada</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Presupuesto">Presupuesto (€)</div>
+                        </th>
+                        <th scope="col">
+                            <div class="slds-truncate" title="Presupuesto">Presupuesto (%)</div>
+                        </th>
+                        <th scope="col" style="width:8%">
+                        </th>
+                    </tr>
+                </thead>   
+                <tbody>      
+                    
+                    <template for:each={resourceList} for:item="resource" for:index="index">
+                        <tr key={resource.Key} id={resource.Key}> 
+                            <td>{resource.Index}</td>                                                  
+                            <td data-label="Profesional">
+                                <template if:true={resourceTypePicklist}>
+                                    <lightning-combobox variant="label-hidden" data-id={index} value={resource.TipoDeRecurso__c} options={resourceTypePicklist} onchange={handleResourceTypeChange} title="Profesional">
+                                    </lightning-combobox>
+                                </template>                          
+                            </td>
+                            <td data-label="Número">
+                                <div class="slds-form-element__control slds-grow">
+                                    <input class="slds-input" variant="label-hidden" data-id={index} value={resource.Cantidad__c} onchange={handleAmountChange} title="Número"></input>
+                                </div>                        
+                            </td>
+                            <td data-label="Jornada">
+                                <template if:true={workingDayTypePicklist}>
+                                    <lightning-combobox variant="label-hidden" data-id={index} value={resource.Jornada__c} options={workingDayTypePicklist} onchange={handleWorkDayTypeChange} title="Jornada">
+                                    </lightning-combobox>
+                                </template>  
+                            </td>
+                            <td data-label="Presupuesto (€)">
+                                <div class="slds-form-element__control slds-grow">
+                                    <input class="slds-input" variant="label-hidden" data-id={index} value={resource.Presupuesto__c} onchange={handleBudgetAmountChange} title="Presupuesto (€)"></input>   
+                                </div>                     
+                            </td>
+                            <td data-label="Presupuesto (%)">
+                                <div class="slds-form-element__control slds-grow">
+                                    <input class="slds-input" variant="label-hidden" data-id={index} value={resource.PorcentajeDelPresupuesto__c} onchange={handleBudgetPercentChange} title="Presupuesto (%)"></input>
+                                </div>
+                            </td>
+                            <td>
+                                <lightning-button-icon icon-name="utility:delete"
+                                    data-id={index}       
+                                    alternative-text="Eliminar"     
+                                    class="slds-m-left_xx-small"
+                                    onclick={removeRow} 
+                                    title="Eliminar recurso">
+                                </lightning-button-icon>
+                            </td>
+                        </tr>
+                    </template>
+                     
+                </tbody>
+            </table>
+            <div class="slds-align_absolute-center slds-p-top_small">                
+                <lightning-button name="Continuar" label="Continuar" onclick={handleNext} variant="brand-outline"></lightning-button>
+            </div>
+        </div>
+    </div>
+
+</template>

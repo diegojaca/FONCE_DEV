@@ -1,0 +1,20 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 05-09-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <lightning-record-edit-form object-api-name="outfunds__Funding_Request__c" onsuccess={successHandler} onerror={errorHandler} record-id={recordId}>
+        <lightning-messages> </lightning-messages>
+        <lightning-input-field field-name="Alegaciones__c"> </lightning-input-field>
+        <lightning-button
+            class="slds-m-top_small"
+            type="submit"
+            label="Guardar"
+            variant="brand-outline"
+        >
+        </lightning-button>
+    </lightning-record-edit-form>
+</template>

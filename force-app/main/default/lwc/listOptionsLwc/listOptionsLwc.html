@@ -1,0 +1,36 @@
+<!--
+  @description       : 
+  @author            : juangabriel.duarte@s4g.es 
+  @group             : 
+  @last modified on  : 05-11-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div class="grid-item">
+        <div class="slds-grid slds-wrap slds-grid_vertical-stretch ">
+            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12"> 
+                <div class="slds-box" style="height:100%">
+                    <div class="slds-var-m-bottom_x-small slds-text-align_center">
+                        <div class="slds-var-m-around_medium">
+                            <h1 class="slds-text-heading_small">¿Eres estudiante?</h1>
+                            <p class="slds-text-body_regular">Descubre las becas que ofrece Fundación Once a continuación.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                <div class="slds-box" style="height:100%">
+                    <div class="slds-var-m-bottom_x-small slds-text-align_center">
+                        <div class="slds-var-m-around_medium" >
+                            <h1 class="slds-text-heading_small">¿Representas a una Universidad?</h1>
+                        </div>
+                        <button class="slds-button slds-button_outline-brand" type="button" onclick={showUniversityModal}>Accede a nuestro portal de universidades</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template if:true={openOptionsModal}>
+        <c-options-register-modal-lwc onclose={handleOnClose} is-modal-open is-for-university={isUnidiversidad}></c-options-register-modal-lwc>
+    </template>
+</template>

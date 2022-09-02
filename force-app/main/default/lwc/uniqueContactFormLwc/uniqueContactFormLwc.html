@@ -1,0 +1,34 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 06-30-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div class="slds-form">
+        <div class="slds-m-around_medium">
+            <p class="slds-text-heading_small slds-align_absolute-center alert" role="alert">Los campos con asterisco son de obligado cumplimiento.</p>
+        </div>
+        
+        <lightning-record-edit-form object-api-name="Contact" onsuccess={handleSuccess} onsubmit={handleSubmit} onerror={handleError} record-id={contactId}>
+            <lightning-messages> </lightning-messages>
+                <template for:each={sectionsMap} for:item="section">
+                    <div key={section.key}>
+                        <h3 class="section">{section.key}</h3>
+                        <template for:each={section.value} for:item="field">
+                            <lightning-input-field field-name={field.key} key={field.key} class={field.key}> </lightning-input-field>
+                        </template> 
+                        <hr>
+                    </div>
+                </template>
+
+            <lightning-button class="slds-align_absolute-center" type="submit" label={buttonName} variant="brand-outline"> </lightning-button>
+        </lightning-record-edit-form>
+        
+        <template if:true={loaded}>
+            <lightning-spinner alternative-text="Guardando"></lightning-spinner>
+        </template>
+
+    </div>
+</template>

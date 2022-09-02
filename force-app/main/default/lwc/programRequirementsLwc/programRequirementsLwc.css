@@ -1,0 +1,13 @@
+.row{
+    display:flex;
+}
+
+
+
+.required-icon {
+    --sds-c-icon-color-foreground-default: red;
+}
+
+.section{
+    font-size: 150%;
+}

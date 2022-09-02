@@ -1,0 +1,91 @@
+<!--
+  @description       : 
+  @author            : juangabriel.duarte@s4g.es 
+  @group             : 
+  @last modified on  : 06-07-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div>
+        <template if:true={sectionsInner}>
+            <ul role="list" class="slds-m-around_medium">
+                <template for:each={sectionsInner} for:item="sctParent" for:index="sindex">
+                    <li role="listItem"  key={sctParent.Id}>
+                        <div class="slds-m-bottom_x-large">
+                            <template if:false={sctParent.TitleDisabled__c}>
+                                <div class="slds-text-title_caps section">
+                                    <h1>{sctParent.Name}</h1>
+                                </div>
+                                <div>
+                                    <img src={sectionLine} alt="Línea Roja">
+                                </div> 
+                            </template>
+                            <ul role="list" key={sctParent.Id}>
+                                <template for:each={sctParent.Sections__r} for:item="subsection" for:index="ssindex">
+                                    <li role="listItem" key={subsection.Id}>
+                                        
+                                        <div class="slds-text-title_caps subSection">
+                                            <h2>{subsection.Title__c}</h2>
+                                        </div>
+
+                                        <template if:false={subsection.IsImage__c}>
+                                            <div class="description">{subsection.Description__c}</div>
+                                            <br>
+                                        </template> 
+
+                                        <template if:true={subsection.IsImage__c}>
+                                            <br>
+                                            <img src={subsection.URL__c} alt={subsection.Description__c}> 
+                                        </template>
+
+                                        <template if:true={subsection.IsDocument__c}>
+                                            <div class="subSectionDoc">
+                                            <img src={pdfLogoUrl} style="margin-right: 5px;" alt="Icono de un documento pdf"> 
+                                            <lightning-formatted-url value={subsection.URL__c} label={subsection.Name} target="_blank"></lightning-formatted-url>
+                                            </div>                                                               
+                                        </template>
+
+                                    </li>
+                                </template>
+                            </ul>
+                            <hr>
+                        </div>
+                    </li>
+                </template>
+                <div class="row">
+                    <template if:false={isPublicSite}>
+                        <template if:true={registerButtonExit}>
+                            <div class="column"> 
+                                <button class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showForm}>Inscríbete</button>
+                            </div>
+                        </template>
+                    </template>
+                    <template if:true={isPublicSite}>
+                        <template if:true={accessButtonExit}>
+                            <div class="column">
+                                <button class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showModal}>Accede</button>
+                            </div>
+                        </template>
+                    </template>
+                    <template if:true={otherButtonExit}>
+                        <template for:each={otherButtons} for:item="button" for:index="bindex">
+                            <div class="column" key={button.Id}> 
+                                <button class="slds-button slds-button_outline-brand slds-align_absolute-center" data-index={bindex} type="button" onclick={buttonAction}>{button.Name}</button>
+                            </div>
+                        </template>
+                    </template>
+                    <div class="column"> 
+                        <button class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showPrograms}>Volver</button>
+                    </div>
+                </div>
+            </ul>
+        </template>
+    </div>
+    <template if:true={openOptionsModal}>
+        <c-options-funding-request-register-modal-lwc program={program} onclose={handleOnClose} is-modal-open is-for-university={isForUniversity} is-in-progress={isInProgress} need-person-lead={needPersonLead}></c-options-funding-request-register-modal-lwc>
+    </template>
+    
+    <c-requirements-modal-lwc 
+        program ={programRecord}>
+    </c-requirements-modal-lwc>
+</template>

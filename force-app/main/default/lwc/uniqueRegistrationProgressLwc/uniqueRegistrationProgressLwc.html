@@ -1,0 +1,173 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 07-13-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+    <div class="datatableSize" style="width:100%"></div>
+    
+    <template if:true={program}>
+        
+        <template if:false={isAgreeCondition}>
+            <h1 class="slds-text-heading_medium slds-m-bottom_medium">
+                <strong>ACEPTACIÓN DE TÉRMINOS Y CONDICIONES</strong>
+            </h1>
+            <p class="slds-text-heading_medium slds-m-bottom_medium termsAndConditions">{termsAndConditions}</p>
+            
+            <div class="slds-m-vertical_small">
+                <lightning-button label="Acepto" title="Aceptar" onclick={handleAgreeClick} class="slds-align_absolute-center" variant="brand-outline"></lightning-button>
+            </div>
+        </template>
+    
+        <template if:true={isAgreeCondition}>
+            <div class="slds-m-vertical_medium slds-box">
+                <h1 class="slds-text-heading_small slds-align_absolute-center requestTitle">{programName}</h1>
+            </div>
+            <lightning-progress-indicator current-step={step} type="path">
+                <template if:true={showStep1}>
+                    <lightning-progress-step label="INFORMACIÓN" value="1" onstepfocus={selectStep1} aria-current={ariaCurrent1} alternative-text="INFORMACIÓN" title="INFORMACIÓN" aria-label={ariaLabel1}></lightning-progress-step>
+                </template>
+                <template if:true={showStep2}>
+                    <template if:false={notNeedFundingRequestForm}>
+                        <lightning-progress-step label="SOLICITUD" value="2" onstepfocus={selectStep2} aria-current={ariaCurrent2} alternative-text="SOLICITUD" title="SOLICITUD" aria-label={ariaLabel2}></lightning-progress-step>    
+                    </template>
+                </template>
+                <!-- <lightning-progress-step label={programName} value="step2" onstepfocus={selectStep2} ></lightning-progress-step> -->
+                <template if:true={showStep3}>
+                    <template if:true={needResources}>
+                        <lightning-progress-step label='RECURSOS' value="3" onstepfocus={selectStep3} aria-current={ariaCurrent3} alternative-text='RECURSOS' title='RECURSOS' aria-label={ariaLabel3}></lightning-progress-step>
+                    </template>
+                </template>
+                <template if:true={showStep4}>
+                    <template if:true={needRequirements}>
+                        <lightning-progress-step label="REQUISITOS" value="4" onstepfocus={selectStep4} aria-current={ariaCurrent4} alternative-text='REQUISITOS' title="REQUISITOS" aria-label={ariaLabel4}></lightning-progress-step>
+                    </template>
+                </template>
+                <template if:true={showStep5}>
+                    <lightning-progress-step label="FINALIZAR" value="5" onstepfocus={selectStep5} aria-current={ariaCurrent5} alternative-text="FINALIZAR" title="FINALIZAR" aria-label={ariaLabel5}></lightning-progress-step>
+                </template>
+            </lightning-progress-indicator>
+            
+
+            
+            <div class="form slds-m-vertical_medium slds-box">
+            <!-- formulario de contacto o de cuenta en función de la necesidad de la solicitud -->
+                <!-- <template if:true={isSelectStep1}> -->
+                <div class={isSelectStep1}> 
+                    <div class="slds-m-vertical_medium">
+                        <h2 class="slds-text-heading_small slds-align_absolute-center requestTitle"><u>FORMULARIO - INFORMACIÓN DEL SOLICITANTE</u></h2>
+                    </div>
+                    <template if:false={isUniversity}>
+                        <c-unique-contact-form-lwc  
+                            oncontactchange={handleContactChange} 
+                            contact-id={contactId}>
+                        </c-unique-contact-form-lwc>
+                    </template>
+                    <template if:true={isUniversity}>
+                        <c-unique-account-form-lwc 
+                            onaccountchange={handleAccountChange} 
+                            contact-id={contactId}
+                            onaccountidchange={handleAccountIdChange}>
+                        </c-unique-account-form-lwc>
+                    </template>
+                </div>
+                <!-- </template> -->
+            <!-- formulario de la solicitud -->
+                <!-- <template if:true={isSelectStep2}> -->
+                <div class={isSelectStep2}> 
+                    <div class="slds-m-vertical_medium">
+                        <h2 class="slds-text-heading_small slds-align_absolute-center requestTitle"><u>FORMULARIO - SOLICITUD</u></h2>
+                    </div>
+                    <c-unique-funding-request-form-lwc 
+                        onfundingrequestidchange={handleFundingRequestIdChange} 
+                        onfundingrequestchange={handleFundingRequestChange} 
+                        program={program} 
+                        funding-request-id={fundingRequestId} 
+                        contact-id={contactId}
+                        account-id={accountId}>
+                    </c-unique-funding-request-form-lwc>
+                </div>
+                <!-- </template> -->
+            <!-- tabla dinamica para insertar recursos -->
+                <!-- <template if:true={isSelectStep3}> -->
+                <div class={isSelectStep3}> 
+                    <template if:false={fundingRequestId}>
+                        <div role="region" class="slds-m-around_medium" aria-live="polite">
+                            <h2 class="slds-text-heading_small slds-align_absolute-center helpText">Atención.</h2>
+                            <p class="slds-text-body_regular slds-align_absolute-center helpText">Primero debe completar el formulario.</p>
+                        </div>
+                    </template>
+                    <template if:true={fundingRequestId}>
+                        <div class="slds-m-vertical_medium">
+                            <h2 class="slds-text-heading_small slds-align_absolute-center requestTitle"><u>SELECCIÓN DE RECURSOS</u></h2>
+                        </div>
+                        <div class="slds-m-around_medium" >
+                            <p class="slds-text-heading_small slds-align_absolute-center helpText">¿Qué recursos aplicarán?</p>
+                            <p class="slds-text-body_regular slds-align_absolute-center helpText">Seleccione los recursos a continuación.</p>
+                        </div>
+                        <c-dynamic-datatable-lwc 
+                            funding-request-id={fundingRequestId} 
+                            onnext={handleOnNextResources}>
+                        </c-dynamic-datatable-lwc>
+                    </template>
+                </div>
+                <!-- </template> -->
+            <!-- tabla para adjuntar los requerimientos -->
+                <!-- <template if:true={isSelectStep4}> -->
+                <div class={isSelectStep4}> 
+                    <template if:false={fundingRequestId}>
+                        <div role="region" class="slds-m-around_medium" aria-live="polite">
+                            <h2 class="slds-text-heading_small slds-align_absolute-center helpText">Atención.</h2>
+                            <p class="slds-text-body_regular slds-align_absolute-center helpText">Primero debe completar el formulario.</p>
+                        </div>
+                    </template>
+                    <template if:true={fundingRequestId}>
+                        <div class="slds-m-vertical_medium">
+                            <h2 class="slds-text-heading_small slds-align_absolute-center requestTitle"><u>CARGA DE REQUISITOS/DOCUMENTOS</u></h2>
+                        </div>
+                        <c-unique-requirements-uploader-lwc
+                            onrequirementsempty={handleRequirementsEmpty}
+                            onrequiredrequirementsempty={handleRequiredRequirementsEmpty}
+                            funding-request-id={fundingRequestId}
+                            status='Open'
+                            type='Preliminary Application'>
+                        </c-unique-requirements-uploader-lwc>
+                        <div class="slds-m-around_medium">
+                            <div class="slds-align_absolute-center slds-p-top_small">
+                                <lightning-button name="Continuar" label="Continuar" onclick={handleContinue} disabled={disabledExit} variant="brand-outline"></lightning-button>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <!-- </template> -->
+            <!-- salida del formulario -->
+                <!-- <template if:true={isSelectStep5}> -->
+                <div class={isSelectStep5}> 
+                    <template if:false={disabledExit}>
+                        <div class="slds-m-around_medium">
+                            <h2 class="slds-text-heading_small slds-align_absolute-center requestTitle"><u>Gracias</u></h2>
+                            <p class="slds-text-body_regular slds-align_absolute-center helpText">El formulario ha terminado.</p>
+                            <p class="slds-text-body_regular slds-align_absolute-center slds-text-align_center helpText">Antes de finalizar compruebe que los datos son correctos, una vez pulse finalizar no podrá modificarlos.</p>
+                        </div>
+                    </template>  
+                    <template if:true={disabledExit}>
+                        <div role="region" class="slds-m-around_medium" aria-live="polite">
+                            <h2 class="slds-text-heading_small slds-align_absolute-center helpText">Completa el formulario, por favor.</h2>
+                            <p class="slds-text-body_regular slds-align_absolute-center helpText">Antes de salir recuerde completar el formulario.</p>
+                        </div>
+                    </template> 
+                    <div class="slds-m-around_medium">
+                        <div class="slds-align_absolute-center slds-p-top_small">
+                            <lightning-button name="Finalizar" label="Finalizar" onclick={exitForm} disabled={disabledExit} variant="brand-outline" title="Finalizar"></lightning-button>
+                        </div>
+                    </div>
+                </div>
+                <!-- </template> -->
+
+            </div>
+        </template>
+    </template>
+
+</template>

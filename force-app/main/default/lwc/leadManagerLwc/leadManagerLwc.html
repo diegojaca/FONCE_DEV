@@ -1,0 +1,81 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 08-08-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    <div if:true={isLoaded} class="cstm-spinner">
+		<lightning-spinner alternative-text="Cargando..."></lightning-spinner>
+	</div>
+                  
+    <div class={managerClass}>
+        <div class="slds-box">
+            <div class="slds-m-around_medium">
+                <p class="slds-text-body_regular slds-align_absolute-center">Este es el listado de interesados en participar en el programa. 
+                    Puede seleccionar un interesado para valorar su aceptación o crear un participante desde cero.</p>
+            </div>
+        </div>
+        <div class="slds-m-around--xx-large">
+            <div class=" slds-p-bottom_small" >
+                <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={addContact} title="Crear participante">Crear participante</button>
+            </div>
+            <div>        
+                <table class="slds-table slds-table_bordered" style="width:100%" > 
+                    <thead>
+                        <tr class="slds-text-title_caps">
+                            <th scope="col" style="width:8%">
+                                <div class="slds-truncate">#</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="Nombre" >Nombre</div>
+                            </th>
+                            <th scope="col">
+                                <div class="slds-truncate" title="DNI">DNI</div>
+                            </th>
+                            <th scope="col" style="width:8%">
+                            </th>
+                        </tr>
+                    </thead>   
+                    <tbody>  
+                        <template for:each={leads} for:item="lead" for:index="index">
+                            <tr key={lead.Key} id={lead.Key}> 
+                                <td>
+                                    {lead.Index}
+                                </td>                                                  
+                                <td data-label="Nombre">
+                                    {lead.Name}                   
+                                </td>
+                                <td data-label="DNI/NIE">
+                                    {lead.N_mero_de_Documento__c}                  
+                                </td>
+                                <td>
+                                    <lightning-button-icon icon-name="utility:preview"
+                                        data-id={index}       
+                                        alternative-text="Ver candidato"     
+                                        class="slds-m-left_xx-small"
+                                        onclick={viewLead} 
+                                        title="Ver candidato">
+                                    </lightning-button-icon>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div>
+            <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showProgramEngagements}>Volver</button>
+        </div>
+    </div>
+
+    <div class={leadFormClass}>
+        <c-lead-form-lwc record-id={recordId} onexit={showManager} program-id={programId}></c-lead-form-lwc>
+    </div>
+    
+    <div class={contactFormClass}>
+        <c-contact-form-lwc onexit={showManager} program-id={programId}></c-contact-form-lwc>
+    </div>
+</template>

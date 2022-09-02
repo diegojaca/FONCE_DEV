@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 05-17-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+	<!-- <lightning-record-form 
+		object-api-name="Contact" 
+		record-id={contactId} 
+		layout-type="Full"
+		mode="view" 
+		columns="2">
+	</lightning-record-form> -->
+	<lightning-record-edit-form object-api-name="Contact" record-id={contactId} onsuccess={handleSuccess}>
+		<lightning-messages></lightning-messages>
+		<!-- <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}> -->
+			<template for:each={sectionsMap} for:item="section">
+				<!-- <lightning-accordion-section name={section.key} label={section.key} key={section.key}> -->
+				<div key={section.key}>
+					<h1>{section.key}</h1>
+					<template for:each={section.value} for:item="field">
+						<lightning-input-field field-name={field.key} key={field.key} required={field.value}>
+						</lightning-input-field>
+					</template>
+					<hr>
+                </div>
+				<!-- </lightning-accordion-section> -->
+			</template>
+		<!-- </lightning-accordion> -->
+
+		<lightning-button class="slds-align_absolute-center" type="submit" label="Guardar" variant="brand-outline"> </lightning-button>
+	</lightning-record-edit-form>
+</template>

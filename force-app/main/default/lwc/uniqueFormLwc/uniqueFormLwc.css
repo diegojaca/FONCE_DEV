@@ -1,0 +1,15 @@
+.helpText{
+  font-size: 150%;
+}
+
+.titleHelpText{
+  font-size: 200%;
+}
+
+.displayBlock{
+  display:block;
+}
+
+.displayNone{
+  display:none;
+}

@@ -1,0 +1,29 @@
+.form{
+    background-color:rgb(253, 253, 253);
+}
+
+.termsAndConditions{
+    font-family: Arial !important;
+    font-size: 1.25em !important;
+    text-align: justify;
+}
+
+.requestTitle{
+    font-size: 2em !important;
+}
+
+.alert {
+    font-weight: bold;
+}
+
+.helpText{
+    font-size: 150%;
+}
+
+.displayBlock{
+    display:block;
+}
+
+.displayNone{
+    display:none;
+}

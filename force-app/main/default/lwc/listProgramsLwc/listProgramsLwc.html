@@ -1,0 +1,56 @@
+<!--
+  @description       : 
+  @author            : juangabriel.duarte@s4g.es 
+  @group             : 
+  @last modified on  : 06-07-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+    
+    <div class="container-element container-element-1 alignwide">
+        <template for:each={programs} for:item="program" for:index="pindex">
+            <div key={program.Id} class="grid-item">
+                <div class="slds-grid slds-wrap slds-grid_vertical-stretch slds-m-vertical_x-small">
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12"> 
+                        <div class="slds-box" style="height:100%">
+                            <div class={program.ColorPublicWeb__c}>
+                                <div class="titleFundingProgram slds-m-horizontal_large slds-text-align_center">
+                                    <span role="heading" class="strong" aria-level="2">{program.Name}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slds-col slds-size_1-of-1 slds-large-size_6-of-12">
+                        <div class="slds-box" style="height:100%">
+                            <div class="slds-m-bottom_x-small slds-text-align_center" style="color: rgb(22, 50, 92); font-size: 13px;">
+                                <span>
+                                    <lightning-formatted-rich-text 
+                                        value={program.Convocatoria__c}>
+                                    </lightning-formatted-rich-text>
+                                </span><br>
+                                
+                                <div class="row">
+                                    <div class="column"> 
+                                        <button  class="slds-button slds-button_outline-brand" type="button" data-index={pindex} onclick={showSearch}>Conoce más {program.Name}</button>
+                                    </div>
+                                    <template if:true={program.IsInProgress__c}>
+                                        <template if:false={isPublicSite}>
+                                            <div class="column"> 
+                                                <button class="slds-button slds-button_outline-brand " type="button" data-index={pindex} onclick={showForm}>Inscríbete en {program.Name}</button>
+                                            </div>
+                                        </template>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </template>
+    </div>
+    
+    <c-requirements-modal-lwc 
+        program ={programRecord}>
+    </c-requirements-modal-lwc>
+          
+</template>

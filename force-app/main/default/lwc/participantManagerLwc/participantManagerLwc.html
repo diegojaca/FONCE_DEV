@@ -1,0 +1,43 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 08-22-2022
+  @last modified by  : cesar.parra@s4g.es
+-->
+<template>
+
+    <!-- Init tabs -->
+    <div class="slds-box">
+        <div class="slds-m-around_medium">
+            <p class="slds-text-body_regular slds-align_absolute-center">{infoText}</p>
+        </div>
+    </div>
+    <lightning-tabset>
+        <lightning-tab label="Requisitos">
+            <template if:true={objectivesIsNotEmpty}>
+                <c-unique-requirements-uploader-lwc
+                    service-delivery-ids={serviceDeliveryIds}
+                    status='Open'
+                    alert-msg=""
+                    onrequiredrequirementsempty={handleRequiredRequirementsEmpty}>
+                </c-unique-requirements-uploader-lwc>
+            </template>
+        </lightning-tab>
+        <lightning-tab label="Contacto">
+            <c-unique-contact-form-lwc button-name="Guardar" contact-id={contactId}></c-unique-contact-form-lwc>
+        </lightning-tab>
+        <template if:true={finishVisible}>
+            <lightning-tab label="Finalizar">
+                <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={participantFinished} disabled={isNotRequiredRequirementsEmpty}>Finalizar proceso de carga de participante</button>
+            </lightning-tab>
+        </template>
+    </lightning-tabset>
+    <!-- End tabs -->
+
+    <template if:true={returnVisible}>
+        <div class="slds-m-vertical_medium"> 
+            <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showList}>Volver</button>
+        </div>
+    </template>
+</template>

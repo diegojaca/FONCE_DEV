@@ -1,0 +1,35 @@
+<!--
+  @description       : 
+  @author            : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+  @group             : 
+  @last modified on  : 08-18-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+    <div class="slds-button-group" role="group">
+        <!--Evaluate buttons-->
+        <template if:true={showEvaluateButtons}>
+            <div>
+                <lightning-button label="Pendiente de Documentación	" name="Pendiente de Documentación" onclick={handleUpdateStatus} class="slds-var-m-left_x-small"></lightning-button>
+            </div>
+            <div>
+                <lightning-button label="Aceptar" name="Aceptada" onclick={handleUpdateStatus} class="slds-var-m-left_x-small"></lightning-button>
+            </div>
+            <div>
+                <lightning-button label="Rechazar" name="Rejected" onclick={handleUpdateStatus} class="slds-var-m-left_x-small"></lightning-button>
+            </div>
+        </template>
+        <!--Aproved buttons-->
+        <template if:true={showGrantedButton}>
+            <div>
+                <lightning-button label="Conceder" name="Awarded" onclick={handleUpdateStatus} class="slds-var-m-left_x-small"></lightning-button>
+            </div>
+        </template>    
+        <template if:true={showAwaitListButton}>
+            <div>
+                <lightning-button label="Lista de espera" name="Lista de espera" onclick={handleUpdateStatus} class="slds-var-m-left_x-small"></lightning-button>
+            </div>
+        </template>
+        
+    </div>
+</template>

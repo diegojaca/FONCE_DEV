@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'BebasNeue';
+  src: url('/s/sfsites/c/resource/BebasNeueFont/BebasNeue-Regular.ttf') format('TrueType');
+}
+
+.redColor{
+  background:#d70019;
+  height:100%;
+  color: white;
+}
+.blueColor{
+  background:#0080cb;
+  height:100%;
+  color: black;
+}
+.yellowColor{
+  background:#ffd100;
+  height:100%;
+  color: black;
+}
+.greenColor{
+  background:#009639;
+  height:100%;
+  color: black;
+}
+.grayColor{
+  background:#465055;
+  height:100%;
+  color: white;
+}
+
+.strong {
+  font-family: BebasNeue;
+  font-size: 3.5em;
+  font-weight: light;
+  min-height: 70px;
+  vertical-align: middle;
+} 
+
+  .row{
+    display:flex;
+  }
+
+  .column{
+    width:100%;
+  }
+
+  .container-element .grid-item:nth-child(2n) .slds-grid{
+    flex-direction: row-reverse;
+  }
+
+  .titleFundingProgram{
+    display: flex; 
+    justify-content: center; 
+    height: 100%; 
+    align-items: center;
+  }

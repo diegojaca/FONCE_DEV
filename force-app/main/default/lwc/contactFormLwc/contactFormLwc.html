@@ -1,0 +1,39 @@
+<!--
+  @description       : 
+  @author            : cesar.parra@s4g.es
+  @group             : 
+  @last modified on  : 07-05-2022
+  @last modified by  : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
+-->
+<template>
+    <template if:false={showForm}>
+        <div class="slds-m-vertical_medium">
+            <!-- <div class="slds-m-around_small" > -->
+                <p class="slds-text-heading_small slds-align_absolute-center helpText">¿Puedes indicar el DNI/NIE?</p>
+            <!-- </div> -->
+
+            <div class="slds-align_absolute-center">
+                <div class="slds-size_1-of-2">
+                    <lightning-input type="text" class="dni" name="dni" value={dni} onchange={handleDni} max-length ="9"></lightning-input>
+                </div>
+            </div>
+            
+            <div class="slds-m-vertical_medium">
+                <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={searchContact} disabled={notCorrectDni}>Buscar</button>            
+            </div>
+        </div>
+    </template>
+    <template if:true={showForm}>
+        <div class="slds-m-around_small" >
+            <p class="slds-text-heading_small slds-align_absolute-center helpText">{contactInfo}</p>
+        </div>
+        <c-unique-contact-form-lwc dni={dni} oncontactcreate={handleOnContactCreate} oncontactchange={handleOnContactChange} button-name="Guardar" contact-id={recordId}></c-unique-contact-form-lwc>
+    </template>
+    <div class="slds-m-vertical_medium">
+        <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={showList}>Volver</button>      
+    </div>
+
+    <template if:true={loaded}>
+        <lightning-spinner alternative-text="Guardando"></lightning-spinner>
+    </template>
+</template>
