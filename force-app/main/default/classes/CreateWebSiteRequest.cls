@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : Juan Gabriel Duarte
  * @group             : 
- * @last modified on  : 07-19-2022
- * @last modified by  : cesar.parra@s4g.es
+ * @last modified on  : 12-09-2022
+ * @last modified by  : diego.jacanamijoy@s4g.es
  * Modifications Log  : New field to query in getFundingRequest
  * Ver   Date         Author                Modification
  * 1.0   05-21-2021   Juan Gabriel Duarte   Initial Version
@@ -131,7 +131,7 @@ public without sharing class CreateWebSiteRequest {
     @AuraEnabled(cacheable=true)
     public static List<outfunds__Funding_Program__c> getPrograms(String portal) {
 
-        String query = 'SELECT ColorPublicWeb__c, Convocatoria__c, Id, Name, Nombre_Convocatoria__c, Minimum_Requirements__c, outfunds__Status__c, IsInProgress__c, IsForUniversity__c, IsForPerson__c '
+        String query = 'SELECT ColorPublicWeb__c, BorderColorPublicWeb__c, Convocatoria__c, Id, Name, Nombre_Convocatoria__c, Minimum_Requirements__c, outfunds__Status__c, IsInProgress__c, IsForUniversity__c, IsForPerson__c '
                       +'FROM outfunds__Funding_Program__c '
                       +'WHERE {0} '
                       +'ORDER BY OrderPublicWeb__c ASC';
@@ -258,7 +258,7 @@ public without sharing class CreateWebSiteRequest {
 
     @AuraEnabled(Cacheable=true)
     public static String getDomain(){
-        return [SELECT Domain FROM Domain].get(0).Domain;
+        return [SELECT Domain FROM Domain WHERE HttpsOption = 'CommunityAlt'].get(0).Domain;
     } 
 
     @AuraEnabled

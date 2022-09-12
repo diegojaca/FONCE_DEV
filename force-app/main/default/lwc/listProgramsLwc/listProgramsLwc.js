@@ -72,4 +72,21 @@ export default class ListProgramsLwc extends NavigationMixin(LightningElement) {
         event.stopPropagation();
         this.template.querySelector("c-requirements-modal-lwc").toggleModal();
     }
+
+    changeBorderColor(event) {
+
+        this.programRecord = this.programs[event.target.dataset.index];
+        this.setBorderColor(event, this.programRecord.BorderColorPublicWeb__c, 3);
+    }
+
+    removeBorderColor(event) {
+        this.setBorderColor(event, 'black', 1);
+    }
+
+    setBorderColor(event, color, borderWith){
+
+        let targetId = event.target.dataset.targetId;
+        this.template.querySelector(`[data-id="${targetId}"]`).style.borderColor = color;
+        this.template.querySelector(`[data-id="${targetId}"]`).style.borderWidth = borderWith + "px";
+    }
 }
