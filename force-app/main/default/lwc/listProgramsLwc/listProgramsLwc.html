@@ -2,7 +2,7 @@
   @description       : 
   @author            : juangabriel.duarte@s4g.es 
   @group             : 
-  @last modified on  : 12-09-2022
+  @last modified on  : 15-09-2022
   @last modified by  : diego.jacanamijoy@s4g.es
 -->
 <template>
@@ -33,12 +33,12 @@
                                 
                                 <div class="row" data-target-id={program.Id} data-index={pindex}>
                                     <div class="column" data-target-id={program.Id} data-index={pindex}> 
-                                        <button  data-target-id={program.Id} class="slds-button slds-button_outline-brand" type="button" data-index={pindex} onclick={showSearch}>Conoce más {program.Name}</button>
+                                        <button  data-target-id={program.Id} class="slds-button slds-button_outline-brand" type="button" data-index={pindex} onclick={showSearch}>Conoce más</button>
                                     </div>
                                     <template if:true={program.IsInProgress__c}>
                                         <template if:false={isPublicSite}>
                                             <div class="column" data-target-id={program.Id} data-index={pindex}> 
-                                                <button data-target-id={program.Id} class="slds-button slds-button_outline-brand " type="button" data-index={pindex} onclick={showForm}>Inscríbete en {program.Name}</button>
+                                                <button data-target-id={program.Id} class="slds-button slds-button_outline-brand " type="button" data-index={pindex} onclick={showForm}>Inscríbete</button>
                                             </div>
                                         </template>
                                     </template>
