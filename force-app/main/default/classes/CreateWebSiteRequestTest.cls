@@ -2,8 +2,8 @@
  * @description       : 
  * @author            : Diego Jacanamijoy -> diego.jacanamijoy@s4g.es
  * @group             : 
- * @last modified on  : 07-21-2022
- * @last modified by  : cesar.parra@s4g.es
+ * @last modified on  : 15-09-2022
+ * @last modified by  : diego.jacanamijoy@s4g.es
 **/
 @IsTest
 public with sharing class CreateWebSiteRequestTest {
@@ -443,5 +443,15 @@ public with sharing class CreateWebSiteRequestTest {
 
         System.assertEquals(0, [SELECT Count() FROM CampaignMember], 'Must be return 0 records');
 
+    }
+
+    @IsTest
+    static void getProgramEngagementRecordTypesOk() {
+
+        Test.startTest();
+            List<RecordType> result = CreateWebSiteRequest.getProgramEngagementRecordTypes();
+        Test.stopTest();
+
+        System.assertEquals(result.size(), [SELECT Count() FROM RecordType WHERE SobjectType = 'pmdm__ProgramEngagement__c'], 'Must be return de same value');
     }
 }

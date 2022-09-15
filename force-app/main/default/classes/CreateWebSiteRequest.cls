@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Juan Gabriel Duarte
  * @group             : 
- * @last modified on  : 12-09-2022
+ * @last modified on  : 15-09-2022
  * @last modified by  : diego.jacanamijoy@s4g.es
  * Modifications Log  : New field to query in getFundingRequest
  * Ver   Date         Author                Modification
@@ -67,6 +67,14 @@ public without sharing class CreateWebSiteRequest {
         return [SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'outfunds__Funding_Request__c'];
         
     }
+
+    @AuraEnabled(Cacheable=true)
+    public static List<RecordType> getProgramEngagementRecordTypes() {
+        
+        return [SELECT Id, DeveloperName FROM RecordType WHERE SobjectType = 'pmdm__ProgramEngagement__c'];
+        
+    }
+
     //se utiliza en uniqueFundingRequestFormLwc y en fundingRequestManagerLwc
     @AuraEnabled(Cacheable=true)
     public static List<Type__mdt> getTypesPrograms(Boolean isForUniversityPersons) {
@@ -312,7 +320,10 @@ public without sharing class CreateWebSiteRequest {
 
     @AuraEnabled(Cacheable=true)
     public static pmdm__ProgramEngagement__c getProgramEngagement(String programEngagementId){
-        return [SELECT Id, pmdm__Contact__c, (SELECT Id, Name, pmdm__AttendanceStatus__c, pmdm__Service__r.Objective__c FROM pmdm__ServiceDeliveries__r) FROM pmdm__ProgramEngagement__c WHERE Id = :programEngagementId].get(0);
+        return [SELECT Id, pmdm__Contact__c, pmdm__Program__r.Origin_Funding_Request__r.outfunds__FundingProgram__r.Nombre_Convocatoria__c,
+                        pmdm__Program__r.Origin_Funding_Request__r.outfunds__FundingProgram__r.Tipo_de_Programas_de_Becas__c, 
+                        (SELECT Id, Name, pmdm__AttendanceStatus__c, pmdm__Service__r.Objective__c FROM pmdm__ServiceDeliveries__r) 
+                FROM pmdm__ProgramEngagement__c WHERE Id = :programEngagementId].get(0);
     }
 
     @AuraEnabled(Cacheable=false)

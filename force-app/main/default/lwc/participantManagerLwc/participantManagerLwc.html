@@ -2,8 +2,8 @@
   @description       : 
   @author            : cesar.parra@s4g.es
   @group             : 
-  @last modified on  : 08-22-2022
-  @last modified by  : cesar.parra@s4g.es
+  @last modified on  : 15-09-2022
+  @last modified by  : diego.jacanamijoy@s4g.es
 -->
 <template>
 
@@ -27,6 +27,11 @@
         <lightning-tab label="Contacto">
             <c-unique-contact-form-lwc button-name="Guardar" contact-id={contactId}></c-unique-contact-form-lwc>
         </lightning-tab>
+        <template if:true={showProgramEngamenetTab}>
+            <lightning-tab label="Participación en programa">
+                <c-unique-program-engagement-form-lwc record-id={programEngagementId} program-name={programName}></c-unique-program-engagement-form-lwc>
+            </lightning-tab>
+        </template>
         <template if:true={finishVisible}>
             <lightning-tab label="Finalizar">
                 <button  class="slds-button slds-button_outline-brand slds-align_absolute-center" type="button" onclick={participantFinished} disabled={isNotRequiredRequirementsEmpty}>Finalizar proceso de carga de participante</button>

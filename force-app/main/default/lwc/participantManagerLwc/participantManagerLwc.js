@@ -6,6 +6,8 @@ import { updateRecord } from 'lightning/uiRecordApi';
 import STAGE_FIELD from '@salesforce/schema/pmdm__ProgramEngagement__c.pmdm__Stage__c';
 import ID_FIELD from '@salesforce/schema/pmdm__ProgramEngagement__c.Id';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+// Import custom labels
+import PROGRAM_TYPE_CRUE from '@salesforce/label/c.PROGRAM_TYPE_CRUE';
 
 export default class ParticipantManagerLwc extends LightningElement {
 
@@ -20,8 +22,14 @@ export default class ParticipantManagerLwc extends LightningElement {
     @track isNotRequiredRequirementsEmpty = true;
     @api returnVisible = false;
     @api finishVisible = false;
+    programName;
+    programType;
     @track infoText = 'Desde la pestaña "Requisitos" podrá agregar documentación. Desde la pestaña "Contacto" podrá acceder a los datos del contacto y modificarlos si fuera necesario.';
 
+    @api get showProgramEngamenetTab() {
+        return this.programType === PROGRAM_TYPE_CRUE;
+    }
+    
     @wire(getRecord, { recordId: '$programEngagementId'})
     wiredGetRecord({ data, error }) {
         if (data) {
@@ -39,6 +47,8 @@ export default class ParticipantManagerLwc extends LightningElement {
             this.error = undefined; 
             this.contactId = data.pmdm__Contact__c;
             this.serviceDeliveries = data.pmdm__ServiceDeliveries__r;
+            this.programName = data.pmdm__Program__r?.Origin_Funding_Request__r?.outfunds__FundingProgram__r?.Nombre_Convocatoria__c;
+            this.programType = data.pmdm__Program__r?.Origin_Funding_Request__r?.outfunds__FundingProgram__r?.Tipo_de_Programas_de_Becas__c;
             for(let serviceDelivery in this.serviceDeliveries){
                 this.serviceDeliveryIds.push(this.serviceDeliveries[serviceDelivery].Id);
             }
