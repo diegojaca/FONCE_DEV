@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>56.0</apiVersion>
+    <assignments>
+        <description>Actualiza el estado del pago a Scheduled</description>
+        <name>Disbursement_to_Scheduled</name>
+        <label>Disbursement to Scheduled</label>
+        <locationX>198</locationX>
+        <locationY>695</locationY>
+        <assignmentItems>
+            <assignToReference>Get_Disbursement.outfunds__Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Scheduled</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_disbursement</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>By_Passer</name>
+        <label>By Passer</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <defaultConnector>
+            <targetReference>Get_Disbursement</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Bypasser__c.Disable_Autolaunched_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Valida el estado del pago</description>
+        <name>Check_status</name>
+        <label>Check status</label>
+        <locationX>330</locationX>
+        <locationY>575</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>pending_Aproval</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Disbursement.outfunds__Status__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Pending Approval</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Disbursement_to_Scheduled</targetReference>
+            </connector>
+            <label>Pending Approval</label>
+        </rules>
+    </decisions>
+    <description>Actualiza el estado del Disbursement, cuando se crea un nuevo registro de requerimiento.</description>
+    <environments>Default</environments>
+    <interviewLabel>Update disbursement by new requirement {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Update disbursement by new requirement</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Registro de pago relacionado al nuevo reuisito</description>
+        <name>Get_Disbursement</name>
+        <label>Get Disbursement</label>
+        <locationX>330</locationX>
+        <locationY>455</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_status</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.outfunds__Disbursement__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>outfunds__Disbursement__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>outfunds__Status__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_disbursement</name>
+        <label>Update disbursement</label>
+        <locationX>198</locationX>
+        <locationY>815</locationY>
+        <inputReference>Get_Disbursement</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>By_Passer</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>outfunds__Disbursement__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>outfunds__Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Accepted</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>outfunds__Status__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Rejected</stringValue>
+            </value>
+        </filters>
+        <object>outfunds__Requirement__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
